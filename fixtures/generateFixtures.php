@@ -121,5 +121,5 @@ class GenerateFixtures {
 
 }
 
-new GenerateFixtures(400000000, array('/Library/Server/Web/Data/Sites/Default/cap/text1.txt', '/Library/Server/Web/Data/Sites/Default/cap/text2.txt'));
+new GenerateFixtures(400000000, array('C:\wamp\www\clickandboat\text1.txt', 'C:\wamp\www\clickandboat\text2.txt'));
 
