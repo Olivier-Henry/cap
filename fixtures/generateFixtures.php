@@ -29,11 +29,14 @@ class GenerateFixtures {
 
     private function process() {
 
+
         $dir = substr($this->filePaths[0], 0, strrpos($this->filePaths[0], DIRECTORY_SEPARATOR));
         if (!is_dir($dir)) {
             throw new Exception("the directory doesn't exist for " . $this->filePaths[0]);
         }
         $this->createFile(0);
+
+        $this->currentSize = 0;
 
         $dir = substr($this->filePaths[1], 0, strrpos($this->filePaths[1], DIRECTORY_SEPARATOR));
         if (!is_dir($dir)) {
@@ -44,23 +47,32 @@ class GenerateFixtures {
 
     private function createFile($position) {
 
+
         while ($this->currentSize < $this->fileSize) {
             $phrasestoAppend = '';
             $phrasesBeforeReturn = mt_rand(1, 15);
 
             for ($i = 0; $i < $phrasesBeforeReturn; $i++) {
+
                 $p = $this->createPhrase();
                 array_push($this->generatedPhrases, $p);
                 $phrasestoAppend .= $p;
             }
 
-            file_put_contents($this->filePaths[$position], $phrasestoAppend, FILE_APPEND);
+            file_put_contents($this->filePaths[$position], $phrasestoAppend . PHP_EOL, FILE_APPEND | LOCK_EX);
+            echo $position . PHP_EOL;
         }
     }
 
     private function createPhrase() {
         $phrase = "";
         $wordNumber = $this->getWordNumber();
+
+        $wl = $this->getWordLength();
+        for ($i = 0; $i < $wl; $i++) {
+            $phrase .= $this->getRandomLetter();
+        }
+
         for ($i = 1; $i < $wordNumber; $i++) {
 
             $phrase .= ' ';
@@ -69,6 +81,7 @@ class GenerateFixtures {
                 $phrase .= mt_rand(1000, 10000) / 10001;
                 continue;
             }
+
 
             $wl = $this->getWordLength();
             for ($i = 0; $i < $wl; $i++) {
@@ -84,13 +97,13 @@ class GenerateFixtures {
     }
 
     private function getWordNumber() {
-        return mt_rand(1, 60);
+        return mt_rand(4, 25);
     }
 
     private function getWordType() {
         $types = ['string', 'float'];
         $n = mt_rand(1, 100);
-        $n = $n < 11 ? 1 : 0;
+        $n = $n < 5 ? 1 : 0;
         return $types[$n];
     }
 
@@ -108,5 +121,5 @@ class GenerateFixtures {
 
 }
 
-$generateFixture = new GenerateFixtures(16, array('/Library/Server/Web/Data/Sites/Default/cap/text1.txt', '/Library/Server/Web/Data/Sites/Default/cap/text2.txt'));
+new GenerateFixtures(400000000, array('/Library/Server/Web/Data/Sites/Default/cap/text1.txt', '/Library/Server/Web/Data/Sites/Default/cap/text2.txt'));
 
