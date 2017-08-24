@@ -36,5 +36,17 @@ class CompareFiles {
     protected function setSmallestFileFirst() {
         return filesize($this->filesPath[0]) > filesize($this->filesPath[1]) ? array_reverse($this->filesPath) : $this->filesPath;
     }
+    
+    protected function process(){
+        
+    }
+    
+    protected function readFile($position){
+        
+    }
+    
+    protected function extractPhrases(){
+        
+    }
 
 }
