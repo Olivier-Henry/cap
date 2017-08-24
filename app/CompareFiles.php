@@ -58,7 +58,7 @@ class CompareFiles {
                     //  echo $buffer[$i] . PHP_EOL;
                     if (in_array($buffer{$i}, $this->punctuation)) {
                         
-                        if($buffer{$i} === "." && $i>0 && $i<$strlen-1 && is_numeric($buffer{$i- 1}) && is_numeric($buffer{$i + 1})){
+                        if($buffer{$i} === "." && $i > 0 && $i< $strlen-1 && is_numeric($buffer{$i- 1}) && is_numeric($buffer{$i + 1})){
                             continue;
                         }
                         
@@ -86,7 +86,7 @@ class CompareFiles {
                 //echo $buffer;
             }
         } else {
-            throw new Exception("File " . basename($this->filesPath[0]) . "can not be read");
+            throw new Exception("File " . basename($this->filesPath[0]) . "cannot be read");
         }
     }
 
