@@ -27,6 +27,8 @@ class CompareFiles {
         
         $this->filesPath = $filePaths;
         $this->filesPath = $this->setSmallestFileFirst();
+        
+        $this->readFile(0);
     }
 
     /**
@@ -42,7 +44,16 @@ class CompareFiles {
     }
     
     protected function readFile($position){
-        
+        if($handle = fopen($this->filesPath[$position], 'rb')){
+            while (!feof($handle)){
+                $buffer = fread($handle, 8192);
+                
+                echo $buffer;
+                die();
+            }
+        }else{
+            throw new Exception("File " . basename($this->filesPath[0]) . "can not be read");
+        }
     }
     
     protected function extractPhrases(){
@@ -50,3 +61,5 @@ class CompareFiles {
     }
 
 }
+
+new CompareFiles(array('/Library/Server/Web/Data/Sites/Default/cap/text1.txt', '/Library/Server/Web/Data/Sites/Default/cap/text2.txt'));
