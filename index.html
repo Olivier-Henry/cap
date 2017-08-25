@@ -1,11 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app" ng-cloak>
     <head>
         <title>File Compare</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+        <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+        <script src="bower_components/angular-material/angular-material.min.js"></script> 
+        <script src="js/app.js"></script>
+        <script src="js/controllers/CompareFiles.js"></script>
+       
+
     </head>
-    <body>
-        
+    <body ng-controller="CompareFiles" layout="column">
+        <div  layout="column">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h1 class="md-flex">File compare</h1>
+                </div>
+            </md-toolbar>
+
+            <md-content flex layout-padding>
+                test
+            </md-content>
+
+        </div>
     </body>
+
 </html>
