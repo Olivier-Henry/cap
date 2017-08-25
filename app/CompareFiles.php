@@ -41,6 +41,7 @@ class CompareFiles {
 
         if ($handle = fopen($this->filesPath[$position], 'rb')) {
             while (!feof($handle)) {
+                
                 $buffer = $lastChunkResidue . fread($handle, 8192);
                 $strlen = strlen($buffer);
                 $index = 0;
@@ -76,4 +77,4 @@ class CompareFiles {
 
 }
 
-new CompareFiles(array('/Library/Server/Web/Data/Sites/Default/cap/text1.txt', '/Library/Server/Web/Data/Sites/Default/cap/text2.txt'));
+

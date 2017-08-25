@@ -1,0 +1,21 @@
+{
+  "name": "CompareAFile",
+  "homepage": "https://github.com/Olivier-Henry/cap",
+  "description": "Simple utility to find identical phrases in two files",
+  "main": "index.html",
+  "authors": [
+    "Olivier HENRY"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.6",
+    "angular-material": "^1.1.4"
+  }
+}

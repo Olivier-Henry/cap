@@ -51,7 +51,7 @@ class GenerateFixtures {
 
     private function createFile($position) {
 
-        $f = fopen($this->filePaths[$position], 'w');
+        $f = fopen($this->filePaths[$position], 'wb');
         while ($this->currentSize < $this->fileSize) {
             $phrasestoAppend = '';
             $phrasesBeforeReturn = mt_rand(1, 15);
