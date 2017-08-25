@@ -41,7 +41,7 @@ class CompareFiles {
 
         if ($handle = fopen($this->filesPath[$position], 'rb')) {
             while (!feof($handle)) {
-                
+
                 $buffer = $lastChunkResidue . fread($handle, 8192);
                 $strlen = strlen($buffer);
                 $index = 0;
@@ -52,7 +52,7 @@ class CompareFiles {
                             continue;
                         }
                         $plen = $i - $index + 1;
-                        $p = str_replace(PHP_EOL , '', substr($buffer, $index, $plen));
+                        $p = str_replace(PHP_EOL, '', substr($buffer, $index, $plen));
                         $index = $i + 1;
                         $hash = md5($p);
                         if ($position === 0) {
@@ -67,7 +67,7 @@ class CompareFiles {
                 }
 
                 if ($index !== $strlen - 1) {
-                    $lastChunkResidue = str_replace(PHP_EOL , '', substr($buffer, $index, $strlen - 1 - $index));
+                    $lastChunkResidue = str_replace(PHP_EOL, '', substr($buffer, $index, $strlen - 1 - $index));
                 }
             }
         } else {
@@ -76,5 +76,3 @@ class CompareFiles {
     }
 
 }
-
-
