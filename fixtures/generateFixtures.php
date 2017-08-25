@@ -1,5 +1,6 @@
 <?php
 
+
 class GenerateFixtures {
 
     private $maxLetters = 26;
@@ -7,7 +8,7 @@ class GenerateFixtures {
     private $filePaths;
     private $generatedPhrases;
     private $fileSize;
-    private $letters = "abcdefghijklmnopqrstuvwxyzéàèç";
+    private $letters = "abcdefghijklmnopqrstuvwxyz";
     private $punctuation = ".?!:;";
     private $currentSize = 0;
 
@@ -24,7 +25,10 @@ class GenerateFixtures {
         $this->generatedPhrases = [];
         $this->fileSize = $fileSize;
 
-        $this->process();
+        
+        
+
+         $this->process();
     }
 
     private function process() {
@@ -47,7 +51,7 @@ class GenerateFixtures {
 
     private function createFile($position) {
 
-
+        $f = fopen($this->filePaths[$position], 'w');
         while ($this->currentSize < $this->fileSize) {
             $phrasestoAppend = '';
             $phrasesBeforeReturn = mt_rand(1, 15);
@@ -59,10 +63,13 @@ class GenerateFixtures {
                 $phrasestoAppend .= $p;
             }
             
-            echo mb_detect_encoding($phrasestoAppend);
-            file_put_contents($this->filePaths[$position],  $phrasestoAppend . PHP_EOL    , FILE_APPEND | LOCK_EX);
-            echo $position . PHP_EOL;
+
+//            echo mb_detect_encoding($phrasestoAppend);
+//            file_put_contents($this->filePaths[$position],  $phrasestoAppend . PHP_EOL    , FILE_APPEND | LOCK_EX);
+            fwrite($f, $phrasestoAppend . PHP_EOL);
         }
+
+        fclose($f);
     }
 
     private function createPhrase() {
@@ -122,6 +129,5 @@ class GenerateFixtures {
 
 }
 
-
-new GenerateFixtures(8000000, array('C:\wamp\www\clickandboat\text1.txt', 'C:\wamp\www\clickandboat\text2.txt'));
+new GenerateFixtures(8000000, array('/Library/Server/Web/Data/Sites/Default/cap/text1.txt', '/Library/Server/Web/Data/Sites/Default/cap/text2.txt'));
 
