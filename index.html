@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="app" ng-cloak>
     <head>
-        <title>File Compare</title>
+        <title>Finding duplicates phrases</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
@@ -12,19 +12,40 @@
         <script src="bower_components/angular-material/angular-material.min.js"></script> 
         <script src="js/app.js"></script>
         <script src="js/controllers/CompareFiles.js"></script>
-       
+        <script src="js/services/CompareFactory.js"></script>
+
 
     </head>
     <body ng-controller="CompareFiles" layout="column">
         <div  layout="column">
             <md-toolbar>
                 <div class="md-toolbar-tools">
-                    <h1 class="md-flex">File compare</h1>
+                    <h1 class="md-flex">Finding duplicates phrases</h1>
                 </div>
             </md-toolbar>
 
-            <md-content flex layout-padding>
-                test
+            <md-content layout-padding layout-margin layout="column">
+                <form name="compareForm">
+                    <div  layout="column">
+                        <md-input-container>
+                            <label>Path of first file</label>
+                            <input name="fpath" ng-model="fpath" required  minlength="2">
+                            <div ng-messages="compareForm.fpath.$error" ng-show="compareForm.fpath.$dirty">
+                                <div ng-message="required">This is required!</div>
+                                <div ng-message="minlength">That's too short!</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Path of secondary file</label>
+                            <input name="spath" ng-model="spath" required minlength="2">
+                            <div ng-messages="compareForm.spath.$error" ng-show="compareForm.spath.$dirty">
+                                <div ng-message="required">This is required!</div>
+                                <div ng-message="minlength">That's too short!</div>
+                            </div>
+                        </md-input-container>
+                        <md-button class="md-raised md-accent" ng-click="findDuplicatePhrases()">Find duplicate phrases</md-button>
+                    </div>
+                </form>
             </md-content>
 
         </div>
