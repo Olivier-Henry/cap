@@ -18,11 +18,11 @@ class CompareFiles {
         }
 
         if (!file_exists($filePaths[0])) {
-            throw new Exception("File " . basename($filePaths[0]) . "doesn't exist");
+            throw new Exception("File " . basename($filePaths[0]) . " doesn't exist at " . $filePaths[0]);
         }
 
         if (!file_exists($filePaths[1])) {
-            throw new Exception("File " . basename($filePaths[1]) . "doesn't exist");
+            throw new Exception("File " . basename($filePaths[1]) . " doesn't exist at " . $filePaths[1]);
         }
 
         $this->filesPath = $filePaths;
@@ -40,44 +40,39 @@ class CompareFiles {
         return filesize($this->filesPath[0]) > filesize($this->filesPath[1]) ? array_reverse($this->filesPath) : $this->filesPath;
     }
 
-   
-
     protected function readFile($position) {
-
-
 
         if ($handle = fopen($this->filesPath[$position], 'rb')) {
             while (!feof($handle)) {
                 $buffer = fread($handle, 8192);
                 $strlen = strlen($buffer);
                 $index = 0;
-
-             //   echo $strlen . PHP_EOL;
+                
+                //   echo $strlen . PHP_EOL;
 
                 for ($i = 0; $i < $strlen; $i++) {
                     //  echo $buffer[$i] . PHP_EOL;
                     if (in_array($buffer{$i}, $this->punctuation)) {
-                        
-                        if($buffer{$i} === "." && $i > 0 && $i< $strlen-1 && is_numeric($buffer{$i- 1}) && is_numeric($buffer{$i + 1})){
+
+                        if ($buffer{$i} === "." && $i > 0 && $i < $strlen - 1 && is_numeric($buffer{$i - 1}) && is_numeric($buffer{$i + 1})) {
                             continue;
                         }
-                        
+
                         $plen = $i - $index + 1;
                         $p = substr($buffer, $index, $plen) . PHP_EOL;
                         $index = $i + 1;
                         $hash = md5($p);
-                        
+
                         if ($position === 0) {
                             $this->phrases[$hash] = $plen;
                             continue;
                         }
-                        
-                        if(isset($this->phrases[$hash]) && $this->phrases[$hash] === $plen){
+
+                        if (isset($this->phrases[$hash]) && $this->phrases[$hash] === $plen) {
                             echo $p . PHP_EOL;
                             unset($this->phrases[$hash]);
                         }
-                       // print_r($this->phrases);
-                        
+                        // print_r($this->phrases);
                     }
                 }
 
@@ -96,4 +91,4 @@ class CompareFiles {
 
 }
 
-new CompareFiles(array('/Library/Server/Web/Data/Sites/Default/cap/text1.txt', '/Library/Server/Web/Data/Sites/Default/cap/text2.txt'));
+new CompareFiles(array('C:\wamp\www\clickandboat\text1.txt', 'C:\wamp\www\clickandboat\text2.txt'));

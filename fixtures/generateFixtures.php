@@ -7,8 +7,8 @@ class GenerateFixtures {
     private $filePaths;
     private $generatedPhrases;
     private $fileSize;
-    private $letters = "abcdefghijklmnopqrstuvwxyz";
-    private $punctuation = ".?!:";
+    private $letters = "abcdefghijklmnopqrstuvwxyzéàèç";
+    private $punctuation = ".?!:;";
     private $currentSize = 0;
 
     public function __construct($fileSize, $filePaths = []) {
@@ -58,8 +58,9 @@ class GenerateFixtures {
                 array_push($this->generatedPhrases, $p);
                 $phrasestoAppend .= $p;
             }
-
-            file_put_contents($this->filePaths[$position], $phrasestoAppend . PHP_EOL, FILE_APPEND | LOCK_EX);
+            
+            echo mb_detect_encoding($phrasestoAppend);
+            file_put_contents($this->filePaths[$position],  $phrasestoAppend . PHP_EOL    , FILE_APPEND | LOCK_EX);
             echo $position . PHP_EOL;
         }
     }
@@ -73,7 +74,7 @@ class GenerateFixtures {
             $phrase .= $this->getRandomLetter();
         }
 
-        for ($i = 1; $i < $wordNumber; $i++) {
+        for ($i = 1; $i <= $wordNumber; $i++) {
 
             $phrase .= ' ';
             $wt = $this->getWordType();
@@ -121,5 +122,6 @@ class GenerateFixtures {
 
 }
 
-new GenerateFixtures(400000000, array('/Library/Server/Web/Data/Sites/Default/cap/text1.txt', '/Library/Server/Web/Data/Sites/Default/cap/text2.txt'));
+
+new GenerateFixtures(8000000, array('C:\wamp\www\clickandboat\text1.txt', 'C:\wamp\www\clickandboat\text2.txt'));
 
